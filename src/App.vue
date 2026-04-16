@@ -3,7 +3,8 @@
     <Toolbar :is-edit-mode="isEditMode" @toggle-edit="toggleEdit" />
     <div class="app-body">
       <Sidebar v-if="settings.sidebarVisible" />
-      <RenderArea ref="renderAreaRef" @toc="tocItems = $event" />
+      <RenderArea v-if="!isEditMode" ref="renderAreaRef" @toc="tocItems = $event" />
+      <Editor v-else />
       <TocPanel
         v-if="settings.tocVisible"
         :items="tocItems"
@@ -21,6 +22,7 @@ import Toolbar from './components/Toolbar.vue'
 import Sidebar from './components/Sidebar.vue'
 import RenderArea from './components/RenderArea.vue'
 import TocPanel from './components/TocPanel.vue'
+import Editor from './components/Editor.vue'
 
 const settings = useSettingsStore()
 const isEditMode = ref(false)
