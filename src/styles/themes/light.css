@@ -1,0 +1,12 @@
+:root[data-theme="light"] {
+  --color-bg: #ffffff;
+  --color-bg-sidebar: #f5f5f5;
+  --color-bg-hover: #e8e8e8;
+  --color-bg-active: #ddeeff;
+  --color-text: #1a1a1a;
+  --color-text-muted: #666666;
+  --color-border: #e0e0e0;
+  --color-link: #0066cc;
+  --color-code-bg: #f0f0f0;
+  --color-scrollbar: #cccccc;
+}
