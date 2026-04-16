@@ -4,6 +4,11 @@
     <div class="app-body">
       <Sidebar v-if="settings.sidebarVisible" />
       <RenderArea ref="renderAreaRef" @toc="tocItems = $event" />
+      <TocPanel
+        v-if="settings.tocVisible"
+        :items="tocItems"
+        :scroll-el="renderAreaRef?.scrollEl ?? null"
+      />
     </div>
   </div>
 </template>
@@ -15,6 +20,7 @@ import { useSettingsStore } from './stores/settingsStore'
 import Toolbar from './components/Toolbar.vue'
 import Sidebar from './components/Sidebar.vue'
 import RenderArea from './components/RenderArea.vue'
+import TocPanel from './components/TocPanel.vue'
 
 const settings = useSettingsStore()
 const isEditMode = ref(false)
