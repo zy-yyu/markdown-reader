@@ -3,21 +3,23 @@
     <Toolbar :is-edit-mode="isEditMode" @toggle-edit="toggleEdit" />
     <div class="app-body">
       <Sidebar v-if="settings.sidebarVisible" />
-      <div style="flex:1; display:flex; align-items:center; justify-content:center; color: var(--color-text-muted);">
-        Components loading...
-      </div>
+      <RenderArea ref="renderAreaRef" @toc="tocItems = $event" />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue'
+import type { TocItem } from './lib/toc'
 import { useSettingsStore } from './stores/settingsStore'
 import Toolbar from './components/Toolbar.vue'
 import Sidebar from './components/Sidebar.vue'
+import RenderArea from './components/RenderArea.vue'
 
 const settings = useSettingsStore()
 const isEditMode = ref(false)
+const renderAreaRef = ref<InstanceType<typeof RenderArea> | null>(null)
+const tocItems = ref<TocItem[]>([])
 
 const effectiveTheme = computed(() => {
   if (settings.theme !== 'system') return settings.theme
