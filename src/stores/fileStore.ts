@@ -36,7 +36,7 @@ export const useFileStore = defineStore('file', () => {
     function filterEntries(entries: FileEntry[]): FileEntry[] {
       return entries.flatMap(entry => {
         if (entry.is_dir) {
-          const children = filterEntries(entry.children)
+          const children = filterEntries(entry.children ?? [])
           return children.length ? [{ ...entry, children }] : []
         }
         return entry.name.toLowerCase().includes(q) ? [entry] : []
