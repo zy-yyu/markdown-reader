@@ -2,7 +2,7 @@
   <div class="app-shell" :data-theme="effectiveTheme">
     <Toolbar :is-edit-mode="isEditMode" @toggle-edit="toggleEdit" />
     <div class="app-body">
-      <!-- Sidebar, RenderArea, TocPanel, Editor will be added in later tasks -->
+      <Sidebar v-if="settings.sidebarVisible" />
       <div style="flex:1; display:flex; align-items:center; justify-content:center; color: var(--color-text-muted);">
         Components loading...
       </div>
@@ -14,6 +14,7 @@
 import { ref, computed, watch } from 'vue'
 import { useSettingsStore } from './stores/settingsStore'
 import Toolbar from './components/Toolbar.vue'
+import Sidebar from './components/Sidebar.vue'
 
 const settings = useSettingsStore()
 const isEditMode = ref(false)
