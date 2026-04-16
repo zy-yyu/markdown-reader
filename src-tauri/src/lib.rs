@@ -34,7 +34,7 @@ fn scan_recursive(path: &str) -> Result<Vec<FileEntry>, std::io::Error> {
         let full_path = entry.path().to_string_lossy().to_string();
 
         if meta.is_dir() {
-            let children = scan_recursive(&full_path).unwrap_or_default();
+            let children = scan_recursive(&full_path)?;
             if !children.is_empty() {
                 entries.push(FileEntry {
                     name,
