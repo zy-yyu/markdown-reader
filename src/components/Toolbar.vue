@@ -24,6 +24,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { invoke } from '@tauri-apps/api/core'
+import { open } from '@tauri-apps/plugin-dialog'
 import { useFileStore, type FileEntry } from '../stores/fileStore'
 import { useSettingsStore } from '../stores/settingsStore'
 
@@ -54,9 +55,9 @@ function increaseFontSize() {
 }
 
 async function openFolder() {
-  // Use window.prompt as placeholder — file dialog plugin added separately
-  const path = window.prompt('Enter folder path:')
-  if (!path) return
+  const selected = await open({ directory: true, multiple: false })
+  if (!selected) return
+  const path = typeof selected === 'string' ? selected : selected[0]
   try {
     const tree = await invoke<FileEntry[]>('scan_dir', { path })
     fileStore.fileTree = tree
@@ -67,8 +68,9 @@ async function openFolder() {
 }
 
 async function openFile() {
-  const path = window.prompt('Enter file path:')
-  if (!path) return
+  const selected = await open({ filters: [{ name: 'Markdown', extensions: ['md'] }], multiple: false })
+  if (!selected) return
+  const path = typeof selected === 'string' ? selected : selected[0]
   try {
     const content = await invoke<string>('read_file', { path })
     fileStore.setCurrentFile(path, content)
