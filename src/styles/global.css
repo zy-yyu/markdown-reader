@@ -52,6 +52,11 @@ body {
 
 .markdown-body p { margin-bottom: 1em; }
 
+.markdown-body p:has(> strong:first-child) {
+  padding-left: 5em;
+  text-indent: -5em;
+}
+
 .markdown-body code {
   background: var(--color-code-bg);
   padding: 0.15em 0.4em;
