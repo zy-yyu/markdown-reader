@@ -16,9 +16,6 @@ const md = new MarkdownIt({
   },
 })
 
-// Enable tables
-md.enable('table')
-
 // Inline math: $...$
 md.use((instance: any) => {
   instance.core.ruler.push('inline_math', (state: any) => {
